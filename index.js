@@ -7,15 +7,13 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'))
 
-let dbpass;
+let uri;
 
 if (process.env.NODE_ENV == "production") {
-    dbpass = process.env.MONGODB_PASSWORD
+    uri = process.env.MONGODB_URI;
 } else {
-    dbpass = require(__dirname + '/modules/ignore.js')['password']
+    uri = `mongodb+srv://advaythp:${require(__dirname + '/modules/ignore.js')['password']}@quiz-bowl.tdloffa.mongodb.net/?retryWrites=true&w=majority&appName=quiz-bowl`;
 }
-
-const uri = `mongodb+srv://advaythp:${dbpass}@quiz-bowl.tdloffa.mongodb.net/?retryWrites=true&w=majority&appName=quiz-bowl`;
 
 let client = new MongoClient(uri, {
     serverApi: {
