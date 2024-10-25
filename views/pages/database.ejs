@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('../partials/head'); %>
+        <script type="module" src="/scripts/database.js"></script>
+        <link rel="stylesheet" href="/styles/database.css">
+    </head>
+    <body>
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+        <main>
+            <div id="content">
+                <h1>Clue Database</h1><hr><br>
+                <div class="tall">
+                    <select id="searchby">
+                        <option value="cat">Category</option>
+                        <option value="subcat">Subcategory</option>
+                        <option value="topic">Topic</option>
+                    </select>
+                    <div class="searchcontainer">
+                        <input id="searchkey" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s]/, '');">
+                        <div class="searchbtns"></div>
+                    </div>
+                    <button id="searchbtn">Search</button>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

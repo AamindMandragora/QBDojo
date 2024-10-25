@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('../partials/head'); %>
+        <script type="module" src="/scripts/tossup.js"></script>
+        <link rel="stylesheet" href="/styles/tossup.css">
+    </head>
+    <body>
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+        <main>
+            <div id="content">
+                <h1>Tossup Reader</h1><hr>
+                <div id="tossupcontainer"><br>
+                    <span id="answer"></span>
+                    <input id="answerbox" autocomplete="off" type="text" pattern="[a-zA-Z0-9]+" oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s]/, '');" readonly onfocus="this.removeAttribute('readonly');">
+                    <button id="buzzer">Buzz</button>
+                    <span id="timer">10.0</span><br><br><hr><br>
+                    <div id="tossupbox"></div><br><hr><br>
+                </div>
+                <div id="writereq" class="tall">
+                    <select id="writeby">
+                        <option value="random">Random</option>
+                        <option value="cat">Category</option>
+                        <option value="subcat">Subcategory</option>
+                        <option value="topic">Topic</option>
+                    </select>
+                    <div class="searchcontainer">
+                        <input id="writekey" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s]/, '');">
+                        <div class="searchbtns"></div>
+                    </div>
+                    <button id="writebtn">Tossup</button>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

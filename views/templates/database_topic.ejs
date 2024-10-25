@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('../partials/head'); %>
+        <link rel="stylesheet" href="/styles/database_template.css">
+        <script type="module" src="/scripts/database_template.js"></script>
+    </head>
+    <body>
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+        <main>
+            <div id="content">
+                <p id="delete"><%- JSON.stringify(data) %></p>
+                <h1>
+                    <a href="/database/<%= catraw %>"><%-cat%></a>/<a href="/database/<%= catraw %>/<%= subcatraw %>"><%-subcat%></a>/<%-(data.answers)[0]%>
+                </h1><hr>
+                <h1>Hard Clues</h1><hr>
+                <ul>
+                    <% for (var i = 0; i < data.personal.hard.length; i++) { %>
+                        <li class="clue"><%= data.personal.hard[i] %>.</li>
+                    <% } %>
+                </ul>
+                <h1>Medium Clues</h1><hr>
+                <ul>
+                    <% for (var i = 0; i < data.personal.medium.length; i++) { %>
+                        <li class="clue"><%= data.personal.medium[i] %>.</li>
+                    <% } %>
+                </ul>
+                <h1>Easy Clues</h1><hr>
+                <ul>
+                    <% for (var i = 0; i < data.personal.easy.length; i++) { %>
+                        <li class="clue"><%= data.personal.easy[i] %>.</li>
+                    <% } %>
+                </ul>
+                <h1>Associations</h1><hr>
+                <ul id="assc">
+                    <% for (var i = 0; i < data.associations.length; i++) { %>
+                        <% var assc = data.associations[i] %>
+                        <% if (assc.length == 3) { %>
+                            <li><a href="<%= assc[2] %>"><%= assc[0] %></a>: <%= assc[1] %>.</li>
+                        <% } else { %>
+                            <li><%= assc[0] %>: <%= assc[1] %>.</li>
+                        <% } %>
+                    <% } %>
+                </ul>
+                <a href="/home">Back to Home</a><br>
+            </div>
+        </main>
+    </body>
+</html>

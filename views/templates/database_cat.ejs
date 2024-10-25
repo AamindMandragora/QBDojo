@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('../partials/head'); %>
+        <link rel="stylesheet" href="/styles/database_template.css">
+    </head>
+    <body>
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+        <main>
+            <div id="content">
+                <h1><%- cat %></h1><hr>
+                <h2>Subcategories</h2>
+                <% for (var i = 0; i < data.length; i++) { %>
+                    <br><a href="<%= path[i] %>"><%= data[i] %></a>
+                <% } %>
+                <br><hr><br>
+                <a href="/home">Back to Home</a>
+            </div>
+        </main>
+    </body>
+</html>

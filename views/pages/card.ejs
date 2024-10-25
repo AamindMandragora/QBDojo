@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('../partials/head'); %>
+        <script type="module" src="/scripts/card.js"></script>
+        <link rel="stylesheet" href="/styles/card.css">
+    </head>
+    <body>
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+        <main>
+            <div id="content">
+                <h1>Card Reader</h1><hr><br>
+                <div id="cardcontainer">
+                    <span id="cardanswer"></span>
+                    <input id="cardinput" autocomplete="off" type="text" pattern="[a-zA-Z0-9]+" oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s]/, '');" readonly onfocus="this.removeAttribute('readonly');">
+                    <button id="flipcard">Show Answer</button>
+                </div><br><hr><br>
+                <div id="cardbox"></div><br><hr><br>
+                <div class="tall">
+                    <select id="cardby">
+                        <option value="random">Random</option>
+                        <option value="cat">Category</option>
+                        <option value="subcat">Subcategory</option>
+                        <option value="topic">Topic</option>
+                    </select>
+                    <div class="searchcontainer">
+                        <input id="cardkey" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s]/, '');">
+                        <div class="searchbtns"></div>
+                    </div>
+                    <button id="cardbtn">Card</button>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

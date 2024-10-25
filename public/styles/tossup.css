@@ -1,0 +1,13 @@
+h1 {
+    text-align: center;
+}
+
+#timer {
+    float: right;
+}
+
+#tossupbox {
+    padding: 0 15vw;
+    max-width: 50vw;
+    text-align: left;
+}

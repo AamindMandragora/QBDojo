@@ -1,0 +1,15 @@
+h1 {
+    text-align: center;
+}
+
+#cardcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cardbox {
+    padding: 0 15vw;
+    max-width: 50vw;
+    text-align: left;
+}
