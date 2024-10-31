@@ -141,7 +141,7 @@ Http.onreadystatechange = function() {
                     for (var z in subcat2topic.get(subcats[y])) {
                         hold += '0';
                     }
-                    setCookie(y, hold, 365);
+                    setCookie(subcats[y], hold, 365);
                 }
             }
         }
