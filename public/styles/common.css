@@ -19,6 +19,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: max(1vw, 1.5vh);
 }
 
 .searchcontainer {
@@ -47,10 +48,17 @@ hr {
     width: 80vw;
 }
 
+nav {
+    display: flex;
+    flex-direction: row;
+    width: min(140vh, 90vw);
+}
+
 .navlink {
-    padding: 50px;
     text-decoration: 0;
     font-weight: 900;
     color: white;
-    font-size: max(1.25vw, 2vh);
+    font-size: max(1.25vw, 1.5vh);
+    width: 20vw;
+    text-align: center;
 }
