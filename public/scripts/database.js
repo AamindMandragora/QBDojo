@@ -126,6 +126,28 @@ function pluralForm(p) {
 let cat2subcat = new Map([['fine-arts', ['auditory-fine-arts', 'visual-fine-arts', 'other-fine-arts']], ['history', ['american-history', 'european-history', 'world-history', 'ancient-history']], ['literature', ['american-literature', 'british-literature', 'european-literature', 'world-literature']], ['rmpss__', ['religion', 'mythology', 'philosophy', 'social-science']], ['science', ['biology', 'chemistry', 'physics', 'math', 'other-science']]]);
 let subcat2topic = new Map();
 
+const Http = new XMLHttpRequest();
+Http.open("GET", '/qb')
+Http.onreadystatechange = function() {
+    if (Http.readyState == 4 && Http.status == 200) {
+        subcat2topic = new Map(Object.entries(JSON.parse(Http.response)));
+        var cats = Array.from(cat2subcat.keys())
+        for (var x in cats) {
+            var subcats = cat2subcat.get(cats[x])
+            for (var y in subcats) {
+                if (!checkCookie(subcats[y]) || getCookie(subcats[y]).length != (subcat2topic.get(subcats[y])).length) {
+                    var hold = '';
+                    for (var z in subcat2topic.get(subcats[y])) {
+                        hold += '0';
+                    }
+                    setCookie(subcats[y], hold, 365);
+                }
+            }
+        }
+    }
+}
+Http.send();
+
 async function onEnter(e) {
     if (e.keyCode === 13 && searchby.value != '') {
         searchDB();
@@ -175,14 +197,12 @@ async function getSearchBtns(searchby, searchkey) {
             }
         }
     } else if (searchby.value == 'topic') {
-        console.log("woo")
         var cats = Array.from(cat2subcat.keys())
         for (var x in cats) {
             var subcats = cat2subcat.get(cats[x])
             for (var y in subcats) {
                 var topics = subcat2topic.get(subcats[y])
                 for (var z in topics) {
-                    console.log(topics[z])
                     if ((toTitle(topics[z]).toLowerCase()).includes((searchkey.value).toLowerCase())) {
                         searchbtns[searchbtns.length] = document.createElement('button');
                         searchbtns[searchbtns.length - 1].index = searchbtns.length - 1;
