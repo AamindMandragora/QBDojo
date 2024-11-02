@@ -127,6 +127,28 @@ function pluralForm(p) {
 let cat2subcat = new Map([['fine-arts', ['auditory-fine-arts', 'visual-fine-arts', 'other-fine-arts']], ['history', ['american-history', 'european-history', 'world-history', 'ancient-history']], ['literature', ['american-literature', 'british-literature', 'european-literature', 'world-literature']], ['rmpss__', ['religion', 'mythology', 'philosophy', 'social-science']], ['science', ['biology', 'chemistry', 'physics', 'math', 'other-science']]]);
 let subcat2topic = new Map();
 
+const Http = new XMLHttpRequest();
+Http.open("GET", '/qb')
+Http.onreadystatechange = function() {
+    if (Http.readyState == 4 && Http.status == 200) {
+        subcat2topic = new Map(Object.entries(JSON.parse(Http.response)));
+        var cats = Array.from(cat2subcat.keys())
+        for (var x in cats) {
+            var subcats = cat2subcat.get(cats[x])
+            for (var y in subcats) {
+                if (!checkCookie(subcats[y]) || getCookie(subcats[y]).length != (subcat2topic.get(subcats[y])).length) {
+                    var hold = '';
+                    for (var z in subcat2topic.get(subcats[y])) {
+                        hold += '0';
+                    }
+                    setCookie(subcats[y], hold, 365);
+                }
+            }
+        }
+    }
+}
+Http.send();
+
 async function onEnter(e) {
     if (e.keyCode === 13) {
         if (enterFunction == 'write') {
@@ -138,6 +160,8 @@ async function onEnter(e) {
         await sleep(100);
     }
 }
+
+document.addEventListener('keydown', onEnter);
 
 async function getSearchBtns(searchby, searchkey) {
     var searchbtns = document.getElementsByClassName('searchbtn');
@@ -322,7 +346,6 @@ async function requestTossup() {
         var cat = Array.from(cat2subcat.keys())[index];
         var index2 = randint((cat2subcat.get(cat)).length)
         var subcat = (cat2subcat.get(cat))[index2]
-        console.log(subcat, subcat2topic.get(subcat))
         var index3 = randint((subcat2topic.get(subcat)).length)
         var topic = subcat2topic.get(subcat)[index3];
         var queryString = JSON.stringify({"answers": topic})
@@ -331,7 +354,6 @@ async function requestTossup() {
         Http.open("GET", url);
         Http.onreadystatechange = function() {
             if (Http.readyState == 4 && Http.status == 200) {
-                console.log(Http.response)
                 writeTossup(JSON.parse(Http.response));
             }
         }
@@ -392,6 +414,7 @@ async function requestTossup() {
     }
 }
 
+write.addEventListener('click', requestTossup);
 writeby.addEventListener('change', function() {
     if (writeby.value != 'random') {
         document.getElementsByClassName('searchcontainer')[0].style.display = 'inline flex';
